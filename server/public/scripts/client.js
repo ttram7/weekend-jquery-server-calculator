@@ -1,0 +1,5 @@
+$(readyNow);
+
+function readyNow() {
+    
+}
