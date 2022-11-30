@@ -1,20 +1,20 @@
 $(readyNow);
 
 // array that stores type of operator clicked on
-let calculationArray = []
+//let calculationArray = []
 
 function readyNow() {
-    $('#plus-btn').on('click', storeOperation);
-    $('#minus-btn').on('click', storeOperation);
-    $('#multiply-btn').on('click', storeOperation);
-    $('#divide-btn').on('click', storeOperation);
+    // $('#plus-btn').on('click', storeOperation);
+    // $('#minus-btn').on('click', storeOperation);
+    // $('#multiply-btn').on('click', storeOperation);
+    // $('#divide-btn').on('click', storeOperation);
     //$('#equal-btn').on('click', calculateNumber);
     $('#equal-btn').on('click', sendCalculation);
 } // end readyNow
 
 // store operator being used in an array to determine which conditional is executed
 // alert saying user cannot use multiple operators at once
-function storeOperation() {
+/*function storeOperation() {
     calculationArray.push(this.innerText);
     if (calculationArray.length > 1) {
         alert('Cannot do multiple operations at once');
@@ -44,19 +44,36 @@ function calculateNumber() {
     objectToSend = {value: result}
     
 } // end calculateNumber
-
+*/
 // send object to server
 function sendCalculation() {
-    calculateNumber();
+    //calculateNumber();
     $.ajax({
         method: 'POST',
         url: '/calculations',
-        data: objectToSend,
+        data: {
+            firstNum: $('#first-input').val(),
+            secondNum: $('#second-input').val(),
+        }
     }).then(function(response) {
-        console.log('back from POST', response);
+        console.log('back from POST - console log', response);
+        //getCalculation();
     }).catch(function(error) {
         console.log(error);
         alert('error posting message')
     }) // end ajax
+}
+
+function getCalculation() {
+    $.ajax({
+        method: 'GET',
+        url: '/calculations'
+    }).then(function(response){
+        appendToDom();
+    })
+}
+
+function appendToDom() {
+
 }
 

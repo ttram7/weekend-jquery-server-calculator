@@ -8,11 +8,23 @@ app.use(express.static('server/public'));
 // POST request - allows us to parse data from front-end
 app.use(express.urlencoded());
 
+// to store operator used in calculation
+//let operatorArray = []
+
+app.post('/calculations', (req, res) => {
+    const calculation = req.body;
+    console.log('in /calculations POST on server', req.body);
+    res.send(calculation);
+    res.sendStatus(201);
+}) // end /calculations POST
+
+//GET request after the POST to get the actual calculation
+
+app.get('/calculations', (req, res) => {
+    //res.send(calculationArray);
+})
+
 app.listen(port, () => {
     console.log('listening on port', port);
 });
 
-app.post('/calculations', (req, res) => {
-    console.log('in /calculations POST', req.body);
-    res.send('ribbet');
-}) // end /calculations POST
