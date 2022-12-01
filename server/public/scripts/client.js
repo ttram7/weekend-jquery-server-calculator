@@ -87,8 +87,10 @@ function getCalculation() {
 
 // append list of calculations to DOM
 function appendToDom(array) {
+    $('#result').empty();
     $('#history-list').empty();
     for (object of array) {
+        $('#result').text(object.result);
         $('#history-list').append(`
         <li>${object.firstNum} ${object.operator} ${object.secondNum} = ${object.result}</li>
     
