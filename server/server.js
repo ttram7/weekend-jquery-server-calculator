@@ -10,17 +10,20 @@ app.use(express.urlencoded());
 
 // to store operator used in calculation
 //let operatorArray = []
+//let calculationArray = []
 
 app.post('/calculations', (req, res) => {
     const calculation = req.body;
     console.log('in /calculations POST on server', req.body);
-    res.send(calculation);
+    //res.send(calculation);
     res.sendStatus(201);
 }) // end /calculations POST
 
 //GET request after the POST to get the actual calculation
 
 app.get('/calculations', (req, res) => {
+    // do calculations here?
+    
     //res.send(calculationArray);
 })
 
