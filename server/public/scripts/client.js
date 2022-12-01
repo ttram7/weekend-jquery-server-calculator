@@ -1,5 +1,5 @@
 $(readyNow);
-
+console.log('test', {testNum: 4});
 // array that stores type of operator clicked on
 let operatorArray = []
 
@@ -16,15 +16,17 @@ function readyNow() {
 // store operator being used in an array to determine which conditional is executed
 // alert saying user cannot use multiple operators at once
 function storeOperation() {
-    operatorArray.push(this.innerText);
-    // if (operatorArray.length > 1) {
-    //     alert('Cannot do multiple operations at once');
-    // }
+    if (operatorArray.length === 1) {
+        alert('Cannot do multiple operations at once. Please hit "C" before entering a new calculation.');
+    } else {
+        operatorArray.push(this.innerText);
+    }
 } // end storeOperation
 
 function clearInputs() {
     $('#first-input').val('');
     $('#second-input').val('');
+    operatorArray.pop();
 }
 
 // get user input
@@ -53,18 +55,20 @@ function clearInputs() {
 */
 // send object to server
 function sendCalculation() {
-    //calculateNumber();
+    //firstNum and secondNum are still strings here;
     $.ajax({
         method: 'POST',
         url: '/calculations',
         data: {
-            firstNum: $('#first-input').val(),
-            secondNum: $('#second-input').val(),
+            firstNum: Number($('#first-input').val()),
+            secondNum: Number($('#second-input').val()),
+            testNum: 4,
             operator: operatorArray[0]
         }
     }).then(function(response) {
         console.log('back from POST - console log', response);
-        //getCalculation();
+        console.log(operatorArray);
+        getCalculation();
     }).catch(function(error) {
         console.log(error);
         alert('error posting message')
@@ -76,12 +80,19 @@ function getCalculation() {
         method: 'GET',
         url: '/calculations'
     }).then(function(response){
-        appendToDom();
+        console.log('back from GET - console log', response);
+        appendToDom(response);
     })
 }
 
 // append list of calculations to DOM
-function appendToDom() {
-
+function appendToDom(array) {
+    $('#history-list').empty();
+    for (object of array) {
+        $('#history-list').append(`
+        <li>${object.firstNum} ${object.operator} ${object.secondNum} = ${object.result}</li>
+    
+        `)
+    }
 }
 

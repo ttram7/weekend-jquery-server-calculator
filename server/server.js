@@ -10,20 +10,44 @@ app.use(express.urlencoded());
 
 // to store operator used in calculation
 //let operatorArray = []
-//let calculationArray = []
+let calculationArray = [];
 
 app.post('/calculations', (req, res) => {
     const calculation = req.body;
-    console.log('in /calculations POST on server', req.body);
-    //res.send(calculation);
+
+    //do calculation here
+    if (calculation.operator === '+') {
+        calculation.result = Number(calculation.firstNum) + Number(calculation.secondNum);
+    }
+    console.log('in /calculations POST on server', calculation);
+    calculationArray.push(calculation);
+    //send back success
     res.sendStatus(201);
 }) // end /calculations POST
 
 //GET request after the POST to get the actual calculation
 
 app.get('/calculations', (req, res) => {
-    // do calculations here?
-    
+    //req is an incoming message object?
+    // do calculations here
+    res.send(calculationArray)
+    // if (calculationArray[0]=== '+') {
+    //     let result = firstNumber + secondNumber;
+    //     console.log(result);
+    // }
+    // if (calculationArray[0]=== '-') {
+    //     let result = firstNumber - secondNumber;
+    //     console.log(result);
+    // }
+    // if (calculationArray[0]=== '*') {
+    //     let result = firstNumber * secondNumber;
+    //     console.log(result);
+    // }
+    // if (calculationArray[0]=== '/') {
+    //     let result = firstNumber / secondNumber;
+    //     console.log(result);
+    // }
+    //res.send(result);
     //res.send(calculationArray);
 })
 
