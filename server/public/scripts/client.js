@@ -33,6 +33,11 @@ function clearInputs() {
 
 // send inputs bundled in an object to server
 function sendCalculation() {
+    // validation for empty inputs; exit function after alert is clicked
+    if ($('#first-input').val() == '' || $('#second-input').val() == '') {
+        alert('Input field is empty. Please enter numbers in both fields.')
+        return false;
+    }
     // NOTE: firstNum and secondNum are still strings here;
     $.ajax({
         method: 'POST',
