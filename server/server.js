@@ -39,6 +39,7 @@ app.get('/calculations', (req, res) => {
     res.send(calculationArray);
 }) // end /calculations GET
 
+//DELETE request to delete all data in calculationArray
 app.delete('/calculations', (req, res) => {
     calculationArray.length = 0;
     console.log('show calculation array is empty:',calculationArray);

@@ -12,6 +12,7 @@ function readyNow() {
     $('#equal-btn').on('click', sendCalculation);
     $('#clear-btn').on('click', clearInputs);
     $('#clear-history-btn').on('click', clearHistory);
+    $('#history-list').on('click', '.idv-calc', reRun);
 } // end readyNow
 
 // store operator that was clicked on in an array to be used for calculation on server-side
@@ -76,18 +77,26 @@ function appendToDom(array) {
     for (object of array) {
         $('#result').text(object.result);
         $('#history-list').append(`
-        <li>${object.firstNum} ${object.operator} ${object.secondNum} = ${object.result}</li>
+        <li class ='idv-calc' data-result='${object.result}'>${object.firstNum} ${object.operator} ${object.secondNum} = ${object.result}</li>
         `)
     }
 } // end appendToDom
 
+// clear history from DOM when clear history btn is clicked 
 function clearHistory() {
     $.ajax({
         method: 'DELETE',
         url: '/calculations'
     }).then(function(response){
         console.log('DELETE', response);
+        // unordered list will be emptied in appendToDom function
         appendToDom(response);
     }) // end ajax
+}
+
+// result for entry in history list will appear when it is clicked
+function reRun() {
+    console.log($(this).data('result'));
+    $('#result').text($(this).data('result'));
 }
 
