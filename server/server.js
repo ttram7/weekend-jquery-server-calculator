@@ -39,6 +39,12 @@ app.get('/calculations', (req, res) => {
     res.send(calculationArray);
 }) // end /calculations GET
 
+app.delete('/calculations', (req, res) => {
+    calculationArray.length = 0;
+    console.log('show calculation array is empty:',calculationArray);
+    res.send(calculationArray);
+})
+
 app.listen(port, () => {
     console.log('listening on port', port);
 });

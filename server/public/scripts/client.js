@@ -11,6 +11,7 @@ function readyNow() {
     $('#divide-btn').on('click', storeOperation);
     $('#equal-btn').on('click', sendCalculation);
     $('#clear-btn').on('click', clearInputs);
+    $('#clear-history-btn').on('click', clearHistory);
 } // end readyNow
 
 // store operator that was clicked on in an array to be used for calculation on server-side
@@ -79,4 +80,14 @@ function appendToDom(array) {
         `)
     }
 } // end appendToDom
+
+function clearHistory() {
+    $.ajax({
+        method: 'DELETE',
+        url: '/calculations'
+    }).then(function(response){
+        console.log('DELETE', response);
+        appendToDom(response);
+    }) // end ajax
+}
 
