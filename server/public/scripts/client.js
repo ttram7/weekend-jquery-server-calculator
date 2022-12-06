@@ -98,5 +98,7 @@ function clearHistory() {
 function reRun() {
     console.log($(this).data('result'));
     $('#result').text($(this).data('result'));
-}
+} // end reRun
 
+// add buttons for each number
+// update reRun function to rerun a calculation
